@@ -76,9 +76,11 @@ ext {
       "--add-opens=java.security.jgss/sun.security.krb5=ALL-UNNAMED"
     )
 
-  maxTestForks = project.hasProperty('maxParallelForks') ? maxParallelForks.toInteger() : Runtime.runtime.availableProcessors()
-  maxScalacThreads = project.hasProperty('maxScalacThreads') ? maxScalacThreads.toInteger() :
-      Math.min(Runtime.runtime.availableProcessors(), 8)
+  //maxTestForks = project.hasProperty('maxParallelForks') ? maxParallelForks.toInteger() : Runtime.runtime.availableProcessors()
+  //maxScalacThreads = project.hasProperty('maxScalacThreads') ? maxScalacThreads.toInteger() :
+    //  Math.min(Runtime.runtime.availableProcessors(), 8)
+  maxTestForks = 1
+  maxScalacThreads = 1
   userIgnoreFailures = project.hasProperty('ignoreFailures') ? ignoreFailures : false
 
   userMaxTestRetries = project.hasProperty('maxTestRetries') ? maxTestRetries.toInteger() : 0
@@ -924,8 +926,8 @@ project(':core') {
     // `core` is often used in users' tests, define the following dependencies as `api` for backwards compatibility
     // even though the `core` module doesn't expose any public API
     api project(':clients')
+    api libs.slf4jlog4j12
     api libs.scalaLibrary
-
     implementation project(':server-common')
     implementation project(':group-coordinator')
     implementation project(':transaction-coordinator')
